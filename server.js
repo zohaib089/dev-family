@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const app = express();
-
+const bodyParser = require('body-parser');
+//to make route private
+const passport = require('passport');
 //User Routes
 const users = require('./routes/api/users');
 //Profile Routes
@@ -11,6 +12,10 @@ const posts = require('./routes/api/posts');
 
 //DB Config
 const db = require('./config/keys').mongoURI;
+const app = express();
+//Body Parser middleWare
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //Connect to MongoDB
 mongoose
@@ -18,7 +23,11 @@ mongoose
   .then(() => console.log('MongoDb Connected'))
   .catch(err => console.log(err));
 
-app.get('/', (req, res) => res.send('hello World'));
+//Pssport middleware
+app.use(passport.initialize());
+
+//passport Config
+require('./config/passport')(passport);
 
 //making app to use exact routes
 app.use('/api/users', users);
