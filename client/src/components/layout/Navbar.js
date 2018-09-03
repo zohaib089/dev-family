@@ -17,6 +17,11 @@ export class Navbar extends Component {
     const authLink = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
+          <Link className="nav-link" to="/feed" style={{ color: 'white' }}>
+            Post Feeds
+          </Link>
+        </li>
+        <li className="nav-item">
           <Link className="nav-link" to="/dashboard" style={{ color: 'white' }}>
             Dashboard
           </Link>
